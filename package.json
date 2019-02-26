@@ -8,7 +8,7 @@
     "build:dev": "webpack --progress --mode development",
     "build:prod": "webpack --progress --mode production",
     "heroku-postbuild": "npm run build",
-    "start": "node index.js",
+    "start": "node server.js",
     "test": "mocha"
   },
   "author": "",
