@@ -1,10 +1,12 @@
-const express = require('express');
-const jwt = require('express-jwt');
-const jwks = require('jwks-rsa');
+import express from 'express';
+import jwt from 'express-jwt';
+import jwks from 'jwks-rsa';
+import { queries } from './queries';
 
 const app = express();
 
 const jwtCheck = jwt({
+  credentialsRequired: false,
   secret: jwks.expressJwtSecret({
     cache: true,
     rateLimit: true,
@@ -16,13 +18,14 @@ const jwtCheck = jwt({
   algorithms: ['RS256']
 });
 
-app.get('/health', (req, res) => {
-  res.sendStatus(200).end();
-});
-
 app.use(jwtCheck);
+app.use('/', queries);
 
 app.get('/authorized', (req, res) => {
+  if (!req.user) {
+    res.sendStatus(401).end();
+    return;
+  }
   res.send('Secured Resource');
 });
 
