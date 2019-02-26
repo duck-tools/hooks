@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress --mode production",
+    "build": "webpack --mode production",
     "build:dev": "webpack --progress --mode development",
+    "build:prod": "webpack --progress --mode production",
+    "heroku-postbuild": "npm run build",
     "start": "node index.js",
     "test": "mocha"
   },
