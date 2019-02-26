@@ -16,6 +16,10 @@ const jwtCheck = jwt({
   algorithms: ['RS256']
 });
 
+app.get('/health', (req, res) => {
+  res.sendStatus(200).end();
+});
+
 app.use(jwtCheck);
 
 app.get('/authorized', (req, res) => {
