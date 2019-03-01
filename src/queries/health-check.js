@@ -6,10 +6,12 @@ export const typeDefs = gql`
   }
 `;
 
-export const resolvers = {
-  Query: {
-    health: () => ({
-      postgres: 'Operational'
-    })
-  }
+export const queryDef = `
+  health: Health
+`;
+
+export const queryResolvers = {
+  health: () => ({
+    postgres: 'Operational'
+  })
 };

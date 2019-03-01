@@ -2,20 +2,26 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { ApolloServer, gql } from 'apollo-server-express';
 import * as healthCheck from './health-check';
+import * as hooks from './hooks';
 
 export const queries = express.Router();
 
 const typeDefs = [
+  healthCheck.typeDefs,
+  hooks.typeDefs,
   gql`
     type Query {
-      health: Health
+      ${healthCheck.queryDef}
+      ${hooks.queryDef}
     }
-  `,
-  healthCheck.typeDefs
+  `
 ];
 
 const resolvers = {
-  ...healthCheck.resolvers
+  Query: {
+    ...healthCheck.queryResolvers,
+    ...hooks.queryResolvers
+  }
 };
 
 const server = new ApolloServer({ typeDefs, resolvers });
