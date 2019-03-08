@@ -1,7 +1,10 @@
 import express from 'express';
 import jwt from 'express-jwt';
 import jwks from 'jwks-rsa';
-import { queries } from './queries';
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 const app = express();
 
@@ -18,18 +21,28 @@ const jwtCheck = jwt({
   algorithms: ['RS256']
 });
 
-app.use(jwtCheck);
-app.use('/', queries);
-
-app.get('/authorized', (req, res) => {
+function unauthorized(req, res, next) {
   if (!req.user) {
     res.sendStatus(401).end();
     return;
   }
+  next();
+}
+
+app.use(jwtCheck);
+
+app.get('/health', (req, res) => {
+});
+
+app.get('/authorized', unauthorized, (req, res) => {
   res.send('Secured Resource');
 });
 
-const port = process.env.PORT || 3031;
-app.listen(port, () => {
-  console.log('hooks started');
-});
+function startServer() {
+  const port = process.env.PORT || 3031;
+  app.listen(port, () => {
+    console.log('hooks started');
+  });
+}
+
+startServer();
