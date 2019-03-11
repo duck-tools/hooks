@@ -2,6 +2,9 @@ import express from 'express';
 import jwt from 'express-jwt';
 import jwks from 'jwks-rsa';
 import { init } from './database';
+import { unauthorized } from './unauthorized';
+import { api } from './api';
+import { health } from './health';
 
 const app = express();
 
@@ -18,19 +21,10 @@ const jwtCheck = jwt({
   algorithms: ['RS256']
 });
 
-function unauthorized(req, res, next) {
-  if (!req.user) {
-    res.sendStatus(401).end();
-    return;
-  }
-  next();
-}
-
 app.use(jwtCheck);
+app.use('/api', api);
 
-app.get('/health', (req, res) => {
-  res.sendStatus(200);
-});
+app.get('/health', health);
 
 app.get('/authorized', unauthorized, (req, res) => {
   res.send('Secured Resource');
