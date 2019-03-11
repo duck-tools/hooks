@@ -4,27 +4,32 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
-    "build:dev": "webpack --progress --mode development",
-    "build:prod": "webpack --progress --mode production",
+    "build": "npm run build:prod",
+    "build:dev": "rollup -c rollup.dev.js",
+    "build:prod": "rollup -c rollup.prod.js",
     "heroku-postbuild": "npm run build",
     "start": "node server.js",
     "test": "mocha"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
-    "babel-loader": "^8.0.5",
-    "chai": "^4.2.0",
-    "dotenv": "^6.2.0",
+  "dependencies": {
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "jwks-rsa": "^1.4.0",
+    "pg-promise": "^8.6.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "chai": "^4.2.0",
+    "dotenv": "^6.2.0",
     "mocha": "^6.0.2",
-    "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3"
+    "rollup": "^1.6.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.1",
+    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-replace": "^2.1.0",
+    "rollup-plugin-terser": "^4.0.4"
   }
 }

@@ -1,10 +1,7 @@
 import express from 'express';
 import jwt from 'express-jwt';
 import jwks from 'jwks-rsa';
-
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
+import { init } from './init-db';
 
 const app = express();
 
@@ -32,13 +29,15 @@ function unauthorized(req, res, next) {
 app.use(jwtCheck);
 
 app.get('/health', (req, res) => {
+  res.sendStatus(200);
 });
 
 app.get('/authorized', unauthorized, (req, res) => {
   res.send('Secured Resource');
 });
 
-function startServer() {
+async function startServer() {
+  await init();
   const port = process.env.PORT || 3031;
   app.listen(port, () => {
     console.log('hooks started');
