@@ -11,8 +11,8 @@ api.use(jsonParser);
 
 api.get('/events', async (req, res) => {
   try {
-    const events = await events.all();
-    res.json(events).status(200);
+    const results = await events.all();
+    res.json(results).status(200);
   } catch (e) {
     res.sendStatus(500);
   }
