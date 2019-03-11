@@ -1,11 +1,4 @@
-import pgpInit from 'pg-promise';
-
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-
-const pgp = pgpInit();
-const db = pgp(process.env.DATABASE_URL);
+import { connection as db } from './connection';
 
 async function initSchema() {
   await db.any('CREATE SCHEMA IF NOT EXISTS hooks');

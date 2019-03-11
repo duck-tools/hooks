@@ -1,7 +1,7 @@
 import express from 'express';
 import jwt from 'express-jwt';
 import jwks from 'jwks-rsa';
-import { init } from './init-db';
+import { init } from './database';
 
 const app = express();
 
