@@ -9,8 +9,13 @@ export const api = express.Router();
 api.use(unauthorized);
 api.use(jsonParser);
 
-api.get('/events', (req, res) => {
-  res.sendStatus(200).end();
+api.get('/events', async (req, res) => {
+  try {
+    const events = await events.all();
+    res.json(events).status(200);
+  } catch (e) {
+    res.sendStatus(500);
+  }
 });
 
 api.post('/event', (req, res) => {
