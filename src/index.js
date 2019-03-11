@@ -26,10 +26,6 @@ app.use('/api', api);
 
 app.get('/health', health);
 
-app.get('/authorized', unauthorized, (req, res) => {
-  res.send('Secured Resource');
-});
-
 async function startServer() {
   await init();
   const port = process.env.PORT || 3031;

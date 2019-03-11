@@ -12,6 +12,7 @@ export default function setup(isProd = false) {
       format: 'cjs'
     },
     external: [
+      'body-parser',
       'express',
       'express-jwt',
       'jwks-rsa',
