@@ -9,7 +9,7 @@
     "build:prod": "rollup -c rollup.prod.js",
     "heroku-postbuild": "npm run build",
     "start": "node server.js",
-    "test": "mocha"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -24,9 +24,8 @@
   "devDependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
-    "chai": "^4.2.0",
     "dotenv": "^6.2.0",
-    "mocha": "^6.0.2",
+    "jest": "^24.5.0",
     "rollup": "^1.6.0",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.2.1",
