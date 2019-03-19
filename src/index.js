@@ -1,7 +1,7 @@
 import express from 'express';
 import jwt from 'express-jwt';
 import jwks from 'jwks-rsa';
-import { init } from './database';
+import { init as initDb } from './database';
 import { unauthorized } from './unauthorized';
 import { api } from './api';
 import { health } from './health';
@@ -27,7 +27,7 @@ app.use('/api', api);
 app.get('/health', health);
 
 async function startServer() {
-  await init();
+  await initDb();
   const port = process.env.PORT || 3031;
   app.listen(port, () => {
     console.log('hooks started');
