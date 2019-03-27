@@ -7,9 +7,11 @@
     "build": "npm run build:prod",
     "build:dev": "rollup -c rollup.dev.js",
     "build:prod": "rollup -c rollup.prod.js",
+    "jest": "jest",
+    "lint": "eslint src test",
     "heroku-postbuild": "npm run build",
     "start": "node server.js",
-    "test": "jest"
+    "test": "npm run lint && npm run jest"
   },
   "author": "",
   "license": "ISC",
@@ -24,7 +26,9 @@
   "devDependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
+    "babel-eslint": "^10.0.1",
     "dotenv": "^6.2.0",
+    "eslint": "^5.15.3",
     "jest": "^24.5.0",
     "rollup": "^1.6.0",
     "rollup-plugin-babel": "^4.3.2",
