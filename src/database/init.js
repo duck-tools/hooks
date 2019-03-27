@@ -1,10 +1,10 @@
-import { connection as db } from './connection';
+import { getConnection } from './connection';
 
-async function initSchema() {
+async function initSchema(db) {
   await db.any('CREATE SCHEMA IF NOT EXISTS hooks');
 }
 
-async function initEventsTable() {
+async function initEventsTable(db) {
   const createEventsTable = `
 CREATE TABLE IF NOT EXISTS hooks.events (
   id SERIAL PRIMARY KEY,
@@ -13,7 +13,20 @@ CREATE TABLE IF NOT EXISTS hooks.events (
   await db.any(createEventsTable);
 }
 
-export async function init() {
-  await initSchema();
-  await initEventsTable()
+async function initEventHooksTable(db) {
+  const createEventHooksTable = `
+CREATE TABLE IF NOT EXISTS hooks.event_hooks (
+  id SERIAL PRIMARY KEY,
+  event INT NOT NULL,
+  hook VARCHAR(200) NOT NULL,
+  UNIQUE (event, hook)
+)`;
+  await db.any(createEventHooksTable);
+}
+
+export async function init(url) {
+  const connection = getConnection(url);
+  await initSchema(connection);
+  await initEventsTable(connection);
+  await initEventHooksTable(connection);
 }

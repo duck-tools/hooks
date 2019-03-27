@@ -6,6 +6,10 @@ import { unauthorized } from './unauthorized';
 import { api } from './api';
 import { health } from './health';
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const app = express();
 
 const jwtCheck = jwt({
@@ -27,7 +31,7 @@ app.use('/api', api);
 app.get('/health', health);
 
 async function startServer() {
-  await initDb();
+  await initDb(process.env.DATABASE_URL);
   const port = process.env.PORT || 3031;
   app.listen(port, () => {
     console.log('hooks started');
