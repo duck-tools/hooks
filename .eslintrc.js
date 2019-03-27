@@ -59,6 +59,7 @@ module.exports = {
         'computed-property-spacing': 'error',
         'consistent-return': 'error',
         'consistent-this': 'error',
+        'no-console': 'warn',
         'curly': 'error',
         'default-case': 'error',
         'dot-location': 'error',

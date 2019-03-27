@@ -2,7 +2,6 @@ import express from 'express';
 import jwt from 'express-jwt';
 import jwks from 'jwks-rsa';
 import { init as initDb } from './database';
-import { unauthorized } from './unauthorized';
 import { api } from './api';
 import { health } from './health';
 
