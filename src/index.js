@@ -4,6 +4,7 @@ import jwks from 'jwks-rsa';
 import { init as initDb } from './database';
 import { api } from './api';
 import { health } from './health';
+import { enforceSsl } from './enforceSsl';
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -24,6 +25,7 @@ const jwtCheck = jwt({
   algorithms: ['RS256']
 });
 
+app.use(enforceSsl);
 app.use(jwtCheck);
 app.use('/api', api);
 
