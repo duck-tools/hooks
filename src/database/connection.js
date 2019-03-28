@@ -4,9 +4,13 @@ const pgp = pgpInit();
 
 let connection = null;
 
-export function getConnection(url) {
+export function init(url) {
+  connection = pgp(url);
+}
+
+export function getConnection() {
   if (connection === null) {
-    connection = pgp(url);
+    throw new Error('database connection not initialized');
   }
   return connection;
 }

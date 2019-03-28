@@ -1,4 +1,4 @@
-import { getConnection } from './connection';
+import { init as initConnection, getConnection } from './connection';
 
 async function initSchema(db) {
   await db.any('CREATE SCHEMA IF NOT EXISTS hooks');
@@ -25,7 +25,8 @@ CREATE TABLE IF NOT EXISTS hooks.event_hooks (
 }
 
 export async function init(url) {
-  const connection = getConnection(url);
+  initConnection(url);
+  const connection = getConnection();
   await initSchema(connection);
   await initEventsTable(connection);
   await initEventHooksTable(connection);
